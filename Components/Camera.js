@@ -12,7 +12,6 @@ import {
 } from 'react-native';
 import {RNCamera} from 'react-native-camera';
 
-import {imageToBlob} from 'react-native-image-to-blob';
 
 const PendingView = () => (
   <View
@@ -26,7 +25,7 @@ const PendingView = () => (
   </View>
 );
 
-const Camera = ({navigation}) => {
+const Camera = ({navigation,route}) => {
   const [flash, setFlash] = useState(true);
   const [isBack, setIsBack] = useState(true);
 
@@ -35,12 +34,7 @@ const Camera = ({navigation}) => {
   const takePicture = async function (camera) {
     const options = {quality: 0.5, base64: true};
     const data = await camera.takePictureAsync(options);
-    //  eslint-disable-next-line
-    const response = await fetch(data.uri);
-    // console.log(response);
-    const blob = await response.blob();
-    // console.log(blob);
-    // console.log(await URL.createObjectURL(blob._data));
+
     setPic(data);
   };
 
@@ -74,6 +68,8 @@ const Camera = ({navigation}) => {
                 navigation.navigate('PicUpload', {
                   uri: pic.uri,
                   base64: pic.base64,
+                  longitude:route.params.longitude,
+                  latitude:route.params.latitude
                 });
                 setPic('');
               }}>

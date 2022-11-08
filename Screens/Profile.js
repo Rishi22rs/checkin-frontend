@@ -20,7 +20,6 @@ const Profile = ({navigation}) => {
   useEffect(() => {
     userPosts({user_id: 1})
       .then(res => {
-        console.log(res);
         setData(res);
       })
       .catch(err => console.log(err));
@@ -31,7 +30,7 @@ const Profile = ({navigation}) => {
       <Animatable.View animation="zoomIn" duration={duration * 500}>
         <TouchableOpacity>
           <Image
-            source={{uri: uri}}
+            source={{uri:`http://192.168.0.102:6969/uploads${uri.substring(1)}`}}
             style={{
               height: dimensions.width / 3,
               width: dimensions.width / 3,
@@ -46,7 +45,7 @@ const Profile = ({navigation}) => {
     return (
       <MyImages
         duration={item.post_id}
-        uri="https://pbs.twimg.com/media/CyZCTDjUsAA7NRD.jpg"
+        uri={item.img_url}
       />
     );
   };

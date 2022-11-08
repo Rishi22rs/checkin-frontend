@@ -7,6 +7,7 @@ import NearPostFeed from '../Screens/NearPostFeed';
 import Camera from '../Components/Camera';
 import PicUpload from '../Screens/PicUpload';
 import Profile from '../Screens/Profile';
+import UserLogin from '../Screens/UserLogin';
 
 const Stack = createStackNavigator();
 
@@ -17,6 +18,7 @@ const Navigation = () => {
         screenOptions={{
           headerShown: false,
         }}>
+          {/* <Stack.Screen name="UserLogin" component={UserLogin}/> */}
         <Stack.Screen name="NearPostFeed" component={NearPostFeed} />
         <Stack.Screen name="Camera" component={Camera} />
         <Stack.Screen name="PicUpload" component={PicUpload} />

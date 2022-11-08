@@ -37,3 +37,12 @@ export const userPosts = async data => {
       throw err;
     });
 };
+
+export const addPost = async data => {
+  return axios
+    .post(`${API}/addpost`, data)
+    .then(response => response.data)
+    .catch(err => {
+      throw err;
+    });
+};

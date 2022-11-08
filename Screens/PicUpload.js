@@ -1,5 +1,4 @@
-import axios from 'axios';
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Image,
   View,
@@ -11,48 +10,16 @@ import {
   Button,
   TouchableOpacity,
 } from 'react-native';
+import { addPost } from '../ApiCalls/Api';
 
 import TopHeader from '../Components/TopHeader';
 
 // import RNFetchBlob from 'rn-fetch-blob';
 
 const PicUpload = ({route, navigation}) => {
+  const [description,setDescription]=useState("")
   const handleUpload = () => {
-    // const data = new FormData();
-    // data.append('file', {
-    //   uri: route.params.uri,
-    //   name: 'picture.jpg',
-    //   type: 'image/jpeg',
-    // });
-    // // Create the config object for the POST
-    // const config = {
-    //   method: 'POST',
-    //   header: {
-    //     'Content-Type': 'multipart/form-data',
-    //   },
-    //   body: {name: 'rishi'},
-    // };
-    // fetch(`http://192.168.0.102:6969/api/getImage`, config)
-    //   .then(responseData => {
-    //     console.log('responseData', responseData);
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //   });
-    console.log(route.params.uri)
-    axios
-      .post(
-        `http://192.168.0.102:6969/api/getImage`,
-        {base64: route.params.base64},
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        },
-      )
-      .then(res => {
-        console.log('res');
-      });
+    addPost({user_id:1,base64:route.params.base64,description,latitude:route.params.latitude,longitude:route.params.longitude,datetime:Date.now()}).then(res=>console.log(res).catch(err=>console.log(err)))
   };
 
   const dimensions = Dimensions.get('window');
@@ -84,6 +51,7 @@ const PicUpload = ({route, navigation}) => {
             editable
             placeholderTextColor="grey"
             placeholder="A description you like to add..."
+            onChangeText={setDescription}
           />
           <TouchableOpacity
             style={{

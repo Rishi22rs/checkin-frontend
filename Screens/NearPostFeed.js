@@ -38,7 +38,7 @@ const NearPostFeed = ({navigation}) => {
           setData(res);
         });
       },
-      error => console.log('Erro', error),
+      error => console.log('Error', error),
       {
         enableHighAccuracy: false,
         timeout: 2000,
@@ -54,17 +54,20 @@ const NearPostFeed = ({navigation}) => {
   const [refreshing, setRefreshing] = React.useState(false);
 
   const onRefresh = React.useCallback(() => {
-    setRefreshing(true);
-    setTimeout(() => setRefreshing(false), 2000);
+    api.allPostsNearby(data).then(res => {
+      setData(res);
+      setRefreshing(false)
+    });
   }, []);
 
   const triggerSnap = () => {
     sheetRef.current.snapTo(1);
   };
 
+
   return (
     <>
-      <TopHeader navigation={navigation} />
+      <TopHeader navigation={navigation} latitude={coords&&coords.coords.latitude} longitude={coords&&coords.coords.longitude}/>
       <BottomSheet
         ref={sheetRef}
         snapPoints={[0, dimensions.height - 200, dimensions.height - 30]}
@@ -72,6 +75,7 @@ const NearPostFeed = ({navigation}) => {
         borderRadius={10}
         renderContent={CommentsBottomSheet}
       />
+     
       {data ? (
         <FlatList
           style={{
@@ -92,6 +96,7 @@ const NearPostFeed = ({navigation}) => {
               liked={item.liked}
               upvotes={item.upvotes}
               triggerSnap={triggerSnap}
+              uri={item.img_url}
             />
           )}
           keyExtractor={item => item.post_id}

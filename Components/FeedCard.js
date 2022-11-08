@@ -50,7 +50,7 @@ const FeedCard = ({
       }}>
       <View>
         <Image
-          source={{uri: uri}}
+          source={{uri: `http://192.168.0.102:6969/uploads${uri.substring(1)}`}}
           style={{width: dimensions.width - 30, height: 300, borderRadius: 20}}
         />
         <Text

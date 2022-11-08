@@ -2,7 +2,7 @@ import React from 'react';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import {Text, TouchableOpacity, View} from 'react-native';
 
-const TopHeader = ({title = '𝐂𝐡𝐞𝐜𝐤𝐈𝐧', navigation}) => {
+const TopHeader = ({title = '𝐂𝐡𝐞𝐜𝐤𝐈𝐧', navigation,latitude,longitude}) => {
   return (
     <View
       style={{
@@ -23,7 +23,7 @@ const TopHeader = ({title = '𝐂𝐡𝐞𝐜𝐤𝐈𝐧', navigation}) => {
         size={30}
         color="black"
         style={{marginLeft: 10}}
-        onPress={() => navigation.navigate('Camera')}
+        onPress={() => navigation.navigate('Camera',{latitude,longitude})}
       />
       <Text style={{fontSize: 20}}>{title}</Text>
       <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
